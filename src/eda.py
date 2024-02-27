@@ -2,13 +2,11 @@ import matplotlib.pyplot as plt
 from keras.datasets import cifar10
 import numpy as np
 
+from data_preprocessing.data_loader import data
+
 # Label names for CIFAR-10 dataset
 label_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
-def data():
-    '''Loads the CIFAR-10 dataset.'''
-    (x_train, y_train), (x_test, y_test) = cifar10.data()
-    return (x_train, y_train), (x_test, y_test)
 
 def visualize_samples(x, y, num_samples=10):
     '''Visualizes a set of sample images from the dataset.'''
