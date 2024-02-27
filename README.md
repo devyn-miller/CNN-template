@@ -1,1 +1,0 @@
-# cpsc-542-assignment-1
