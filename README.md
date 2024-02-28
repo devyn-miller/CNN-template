@@ -7,37 +7,39 @@ runme:
 # CPSC542 Assignment 1
 
 ## Student Information
+
 - **Student Name:** Devyn Miller
 - **Student ID:** 2409539
 
 ## Collaboration
+
 - **In-class collaborators:** Received help from Caitlyn, the TA.
 
 ## Resources
-- **Resources used:** 
-    - "Convolutional Neural Networks: A Brief History of their Evolution"
-    - "A Comprehensive Survey on Transfer Learning"
-    - "Meta-Learning in Neural Networks: A Survey"
-    - [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
-    - [Why One-Hot Encode Data in Machine Learning?](https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/)
-    - [How to Develop a CNN from Scratch for CIFAR-10 Photo Classification](https://machinelearningmastery.com/how-to-develop-a-cnn-from-scratch-for-cifar-10-photo-classification/)
-    - [CIFAR-10 with CNN for Beginner](https://www.kaggle.com/code/roblexnana/cifar10-with-cnn-for-beginer/notebook)
-    - Copilot
-    - Perplexity
+
+- **Resources used:**
+   - "Convolutional Neural Networks: A Brief History of their Evolution"
+   - "A Comprehensive Survey on Transfer Learning"
+   - "Meta-Learning in Neural Networks: A Survey"
+   - [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
+   - [Why One-Hot Encode Data in Machine Learning?](https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/)
+   - [How to Develop a CNN from Scratch for CIFAR-10 Photo Classification](https://machinelearningmastery.com/how-to-develop-a-cnn-from-scratch-for-cifar-10-photo-classification/)
+   - [CIFAR-10 with CNN for Beginner](https://www.kaggle.com/code/roblexnana/cifar10-with-cnn-for-beginer/notebook)
+   - Copilot
+   - Perplexity
 
 ## Data Source
+
 - **Data source:** CIFAR-10 dataset from Keras: `from keras.datasets import cifar10`
 
 ## Code Repository
-- **GitHub Repository:** [CPSC542-cifar-Assignment1](https://github.com/devyn-miller/assignment-1-cpsc-542.git)
+
+- **GitHub Repository:** [assignment-1-cpsc-542](https://github.com/devyn-miller/assignment-1-cpsc-542.git)
 
 # Additional notes below — please read.
 
 1. All of the plots and figures for this project can be found in the Jupyter notebook entitled `main.ipynb`. The report only contains the graphs for the loss function and accuracy.
-
-2. When reviewing the `main.ipynb` file, please note that the exploratory data analysis (EDA) is separated from the `main()` function for the reasons mentioned above. The EDA function is provided as a standalone section within the notebook and can be executed independently to gain insights into the dataset.
-
-3. I have included a folder called `not-for-submission` which contains supplementary Jupyter notebooks that were created during the development and experimentation process for the assignment. These notebooks are not part of the main submission but provide insights into the iterative development and exploration of different approaches. Each notebook represents a different version or variation of the main assignment, exploring different techniques, parameters, or design choices.
+2. I have included a folder called `not-for-submission` which contains supplementary Jupyter notebooks that were created during the development and experimentation process for the assignment, including playing around with various parameters. These notebooks are not part of the main submission but provide insights into the iterative development and exploration of different approaches. Each notebook represents a different version or variation of the main assignment, exploring different techniques, parameters, or design choices as discussed in the submitted report.
 
 Contents:
 
