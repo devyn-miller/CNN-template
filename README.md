@@ -31,17 +31,16 @@ runme:
 ## Code Repository
 - **GitHub Repository:** [CPSC542-cifar-Assignment1](https://github.com/devyn-miller/assignment-1-cpsc-542.git)
 
-## Explanation for EDA Separation in main.ipynb
-When reviewing the `main.ipynb` file, please note that the exploratory data analysis (EDA) is separated from the `main()` function for the reasons mentioned above. The EDA function is provided as a standalone section within the notebook and can be executed independently to gain insights into the dataset.
+# Additional notes below — please read.
 
-## Supplementary Notebooks (Not for Submission)
+1. All of the plots and figures for this project can be found in the Jupyter notebook entitled `main.ipynb`. The report only contains the graphs for the loss function and accuracy.
 
-This folder contains supplementary Jupyter notebooks that were created during the development and experimentation process for the CPSC542 assignment on CIFAR data. These notebooks are not part of the main submission but provide insights into the iterative development and exploration of different approaches.
+2. When reviewing the `main.ipynb` file, please note that the exploratory data analysis (EDA) is separated from the `main()` function for the reasons mentioned above. The EDA function is provided as a standalone section within the notebook and can be executed independently to gain insights into the dataset.
 
-### Purpose
-The purpose of these notebooks is to document various iterations and experiments conducted while working on the assignment. Each notebook represents a different version or variation of the main assignment, exploring different techniques, parameters, or design choices.
+3. I have included a folder called `not-for-submission` which contains supplementary Jupyter notebooks that were created during the development and experimentation process for the assignment. These notebooks are not part of the main submission but provide insights into the iterative development and exploration of different approaches. Each notebook represents a different version or variation of the main assignment, exploring different techniques, parameters, or design choices.
 
-### Contents
+Contents:
+
 - `CPSC542_cifar_Assignment1SeparableConv2D.ipynb`: Notebook exploring the use of separable convolutional layers.
 - `CPSC542_cifar_Assignment1_grayscale.ipynb`: Notebook experimenting with grayscale conversion of images.
 - `CPSC542_cifar_Assignment1batch_128.ipynb`: Notebook investigating batch size effects with a batch size of 128.
@@ -51,5 +50,4 @@ The purpose of these notebooks is to document various iterations and experiments
 - `CPSC542_cifar_Assignment1v2.ipynb`: Revised version of the main assignment with improvements or changes.
 - `CPSC542_cifar_Assignment1v2_(2)only_two_conv_blocks_finished_running.ipynb`: Notebook with only two convolutional blocks, completed and ready for review.
 
-### Usage
 These notebooks are provided for reference purposes and can be consulted to understand the development process, experiments conducted, and decisions made during the assignment. They may contain incomplete or experimental code and should not be considered as final submissions.
