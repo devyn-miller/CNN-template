@@ -1,5 +1,6 @@
 #architecture.py
 from tensorflow.keras import layers, models
+from config import Config
 
 def conv_block(input_tensor, num_filters):
     encoder = layers.Conv2D(num_filters, (3, 3), padding='same')(input_tensor)
