@@ -1,4 +1,9 @@
 #three_best_3_worst.py
+
+import tensorflow as tf
+import matplotlib.pyplot as plt
+
+
 def display_best_worst_predictions(model, dataset, num_examples=3):
     # Store IoU scores along with image, true mask, and predicted mask
     results = []

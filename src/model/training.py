@@ -1,5 +1,6 @@
 #training.py
 import tensorflow as tf
+import config
 
 def create_mask(pred_mask):
     pred_mask = tf.argmax(pred_mask, axis=-1)
@@ -21,7 +22,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 # Assuming `train_dataset` and `val_dataset` are created using `get_dataset`
-model_history = model.fit(train_dataset, epochs=num_epochs, validation_data=val_dataset)
+model_history = model.fit(train_dataset, epochs=EPOCHS, validation_data=val_dataset)
 
 # Show predictions
-show_predictions_v = show_predictions(train_dataset, 1)
+# show_predictions_v = show_predictions(train_dataset, 1)

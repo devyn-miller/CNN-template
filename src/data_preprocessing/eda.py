@@ -1,6 +1,7 @@
 # eda.py
 import matplotlib.pyplot as plt
-from data_preprocessing import get_dataset
+import tensorflow as tf
+import config
 
 def display_sample_images(dataset):
     plt.figure(figsize=(10, 10))
@@ -13,6 +14,5 @@ def display_sample_images(dataset):
         plt.axis('off')
     plt.show()
 
-# Assuming you have a function to get a dataset
-dataset = get_dataset(Config.IMAGE_DIR, Config.MASK_DIR)
-display = display_sample_images(dataset)
+# dataset = get_dataset(Config.IMAGE_DIR, Config.MASK_DIR)
+# display = display_sample_images(dataset)
