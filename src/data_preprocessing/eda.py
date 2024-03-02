@@ -1,4 +1,4 @@
-# exploratory_data_analysis.py
+# eda.py
 import matplotlib.pyplot as plt
 from data_preprocessing import get_dataset
 
