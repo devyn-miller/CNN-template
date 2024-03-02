@@ -1,93 +1,41 @@
-from keras.models import Sequential
-from keras.layers import Dense, Flatten, Dropout, Conv2D, MaxPooling2D, BatchNormalization
-from config import NUM_CLASSES, LEARNING_RATE
-from keras.optimizers import SGD
-def build_model():
-    '''Builds and returns the CNN model.'''
-    model = Sequential()
-    # First convolutional block with 32 filters, batch normalization, and dropout for regularization
-    model.add(
-        Conv2D(
-            32,
-            (3, 3),
-            activation="relu",
-            kernel_initializer="he_uniform",
-            padding="same",
-            input_shape=(32, 32, 3),
-        )
-    )
-    model.add(BatchNormalization())
-    model.add(
-        Conv2D(
-            32,
-            (3, 3),
-            activation="relu",
-            kernel_initializer="he_uniform",
-            padding="same",
-        )
-    )
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D((2, 2)))
-    model.add(Dropout(0.2))
+from tensorflow.keras import layers, models
 
-    # Second convolutional block with increased filter size for more complex feature extraction
-    model.add(
-        Conv2D(
-            64,
-            (3, 3),
-            activation="relu",
-            kernel_initializer="he_uniform",
-            padding="same",
-        )
-    )
-    model.add(BatchNormalization())
-    model.add(
-        Conv2D(
-            64,
-            (3, 3),
-            activation="relu",
-            kernel_initializer="he_uniform",
-            padding="same",
-        )
-    )
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D((2, 2)))
-    model.add(Dropout(0.3))
+def conv_block(input_tensor, num_filters):
+    encoder = layers.Conv2D(num_filters, (3, 3), padding='same')(input_tensor)
+    encoder = layers.BatchNormalization()(encoder)
+    encoder = layers.Activation('relu')(encoder)
+    encoder = layers.Conv2D(num_filters, (3, 3), padding='same')(encoder)
+    encoder = layers.BatchNormalization()(encoder)
+    encoder = layers.Activation('relu')(encoder)
+    return encoder
 
-    # Third convolutional block with further increased filter size
-    model.add(
-        Conv2D(
-            128,
-            (3, 3),
-            activation="relu",
-            kernel_initializer="he_uniform",
-            padding="same",
-        )
-    )
-    model.add(BatchNormalization())
-    model.add(
-        Conv2D(
-            128,
-            (3, 3),
-            activation="relu",
-            kernel_initializer="he_uniform",
-            padding="same",
-            name='last_conv_layer',
-        )
-    )
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D((2, 2)))
-    model.add(Dropout(0.4))
+def encoder_block(input_tensor, num_filters):
+    encoder = conv_block(input_tensor, num_filters)
+    encoder_pool = layers.MaxPooling2D((2, 2), strides=2)(encoder)
+    return encoder_pool, encoder
 
-    # Flatten the output from the convolutional layers before passing to the dense layer
-    model.add(Flatten())
-    # Dense layer for classification
-    model.add(Dense(128, activation="relu", kernel_initializer="he_uniform"))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.5))
-    # Output layer with softmax activation for multi-class classification
-    model.add(Dense(NUM_CLASSES, activation="softmax"))
-    # Compile the model with legacy SGD optimizer and categorical crossentropy loss function
-    optimizer = SGD(learning_rate=LEARNING_RATE)
-    model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+def decoder_block(input_tensor, concat_tensor, num_filters):
+    decoder = layers.Conv2DTranspose(num_filters, (2, 2), strides=(2, 2), padding='same')(input_tensor)
+    decoder = layers.concatenate([decoder, concat_tensor], axis=-1)
+    decoder = layers.BatchNormalization()(decoder)
+    decoder = conv_block(decoder, num_filters)
+    return decoder
+
+def unet(input_size=(256, 256, 3), n_classes=1):
+    inputs = layers.Input(shape=input_size)
+    encoder0_pool, encoder0 = encoder_block(inputs, 32)
+    encoder1_pool, encoder1 = encoder_block(encoder0_pool, 64)
+    encoder2_pool, encoder2 = encoder_block(encoder1_pool, 128)
+    encoder3_pool, encoder3 = encoder_block(encoder2_pool, 256)
+    
+    center = conv_block(encoder3_pool, 512)
+    
+    decoder3 = decoder_block(center, encoder3, 256)
+    decoder2 = decoder_block(decoder3, encoder2, 128)
+    decoder1 = decoder_block(decoder2, encoder1, 64)
+    decoder0 = decoder_block(decoder1, encoder0, 32)
+    
+    outputs = layers.Conv2D(n_classes, (1, 1), activation='sigmoid')(decoder0)
+    
+    model = models.Model(inputs=[inputs], outputs=[outputs])
     return model

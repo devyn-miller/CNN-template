@@ -1,55 +1,35 @@
+# visualization.py
 import matplotlib.pyplot as plt
 import numpy as np
+import tensorflow as tf
 
-def plot_results(history):
-    '''Plots the training and validation accuracy and loss over epochs.'''
-    # Plot training & validation accuracy values
-    plt.plot(history.history['accuracy'])
-    plt.plot(history.history['val_accuracy'])
-    plt.title('Model accuracy')
-    plt.ylabel('Accuracy')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.show()
-
-    # Plot training & validation loss values
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('Model loss')
-    plt.ylabel('Loss')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.show()
-
-def display_best_worst_images(test_x, test_y, predictions, class_names):
-    '''Displays the three best and three worst images from the test set.'''
-    # Calculate confidence
-    confidences = np.max(predictions, axis=1)
-
-    # Calculate correctness
-    correct = np.argmax(predictions, axis=1) == np.argmax(test_y, axis=1)
-
-    # Best: Correct predictions with the highest confidence
-    best_indices = np.argsort(-confidences * correct)[:3]
-
-    # Worst: Incorrect predictions with the highest confidence
-    # This computes a "wrongness" score and takes those with the highest scores
-    worst_indices = np.argsort(-confidences * ~correct)[:3]
-
-    # Display images
-    plt.figure(figsize=(12, 4))
-    for i, idx in enumerate(np.concatenate([best_indices, worst_indices])):
-        plt.subplot(2, 3, i + 1)
-        plt.xticks([])
-        plt.yticks([])
-        plt.grid(False)
-        plt.imshow(test_x[idx])
-        predicted_label = class_names[np.argmax(predictions[idx])]
-        true_label = class_names[np.argmax(test_y[idx])]
-        if i < 3:
-            plt.title(f"Best #{i+1}\nPred: {predicted_label}\nTrue: {true_label}")
-        else:
-            plt.title(f"Worst #{i-2}\nPred: {predicted_label}\nTrue: {true_label}")
-
+def display_predictions(model, dataset, num_display=3):
+    plt.figure(figsize=(15, 5 * num_display))
+    
+    for images, masks in dataset.take(num_display):
+        pred_masks = model.predict(images)
+        pred_masks = tf.argmax(pred_masks, axis=-1)
+        pred_masks = pred_masks[..., tf.newaxis]
+        
+        for i in range(num_display):
+            plt.subplot(num_display, 3, i * 3 + 1)
+            plt.imshow(tf.keras.preprocessing.image.array_to_img(images[i]))
+            plt.title("Input Image")
+            plt.axis("off")
+            
+            plt.subplot(num_display, 3, i * 3 + 2)
+            plt.imshow(tf.keras.preprocessing.image.array_to_img(masks[i]), cmap='gray')
+            plt.title("True Mask")
+            plt.axis("off")
+            
+            plt.subplot(num_display, 3, i * 3 + 3)
+            plt.imshow(tf.keras.preprocessing.image.array_to_img(pred_masks[i]), cmap='gray')
+            plt.title("Predicted Mask")
+            plt.axis("off")
+            
     plt.tight_layout()
     plt.show()
+
+# Example usage
+# Make sure you have a trained model and a validation dataset ready
+# display_predictions(model, val_dataset, num_display=3)

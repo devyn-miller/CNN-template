@@ -1,14 +1,10 @@
-
-from sklearn.metrics import classification_report, confusion_matrix
+# evaluation.py
 import numpy as np
+import tensorflow as tf
 
-def evaluate_model(model, x_test, y_test):
-    '''Evaluates the model on the test set and prints classification metrics.'''
-    y_pred = model.predict(x_test)
-    y_pred_classes = np.argmax(y_pred, axis=1)
-    y_true = np.argmax(y_test, axis=1)
+def evaluate_model(model, val_dataset):
+    results = model.evaluate(val_dataset)
+    print("Loss: {:.5f}, Accuracy: {:.2f}%".format(results[0], results[1] * 100))
 
-    print(classification_report(y_true, y_pred_classes))
-
-    print(confusion_matrix(y_true, y_pred_classes))
-
+# Assuming `val_dataset` is available
+eval = evaluate_model(model, val_dataset)

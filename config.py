@@ -1,16 +1,14 @@
 # Path configurations
 DATA_PATH = 'data/'
 MODEL_SAVE_PATH = 'models/'
-
-# Training configurations
-BATCH_SIZE = 32
-EPOCHS = 100
-NUM_CLASSES = 10
-LEARNING_RATE = 0.01
-DATA_AUGMENTATION = True
-
-
-# Data augmentation configurations
-WIDTH_SHIFT_RANGE = 0.1
-HEIGHT_SHIFT_RANGE = 0.1
-HORIZONTAL_FLIP = True
+# config.py# config.py
+class Config:
+    IMAGE_DIR = 'path/to/cityscapes/images'
+    MASK_DIR = 'path/to/cityscapes/masks'
+    IMAGE_SIZE = (256, 256)
+    BATCH_SIZE = 8
+    EPOCHS = 50
+    LEARNING_RATE = 1e-4
+    NUM_CLASSES = 34  # Update this based on Cityscapes documentation
+    TRAIN_VAL_SPLIT = 0.8
+    SEED = 42
